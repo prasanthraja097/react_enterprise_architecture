@@ -2,8 +2,16 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Button } from '@shared/components/atoms/Button/Button'
-import { Input } from '@shared/components/atoms/Input/Input'
+import {
+  Button,
+  Input,
+  Label,
+  Form,
+  FormField,
+  FormItem,
+  FormControl,
+  FormMessage,
+} from '@shared/components/ui'
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
@@ -16,31 +24,55 @@ export const LoginForm: React.FC<{
   onSubmit: (values: FormValues) => void
   loading?: boolean
 }> = ({ onSubmit, loading = false }) => {
-  const { register, handleSubmit, formState } = useForm<FormValues>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: { email: '', password: '' },
   })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4 w-full max-w-sm">
-      <div>
-        <label className="block text-sm font-medium mb-1">Email</label>
-        <Input {...register('email')} type="email" />
-        {formState.errors.email && <div className="text-xs text-red-400 mt-1">{formState.errors.email.message}</div>}
-      </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6 w-full max-w-md">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <Label className="mb-1 text-sm font-medium">Email</Label>
+              <FormControl>
+                <Input placeholder="you@company.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <div>
-        <label className="block text-sm font-medium mb-1">Password</label>
-        <Input {...register('password')} type="password" />
-        {formState.errors.password && <div className="text-xs text-red-400 mt-1">{formState.errors.password.message}</div>}
-      </div>
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <Label className="mb-1 text-sm font-medium">Password</Label>
+              <FormControl>
+                <Input placeholder="••••••••" type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <div>
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <input id="remember" type="checkbox" className="h-4 w-4 rounded border-border bg-transparent" />
+            <label htmlFor="remember" className="text-sm text-muted">Remember me</label>
+          </div>
+          <a className="text-sm text-primary hover:underline" href="#">Forgot password?</a>
+        </div>
+
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? 'Signing in...' : 'Sign in'}
         </Button>
-      </div>
-    </form>
+      </form>
+    </Form>
   )
 }
 

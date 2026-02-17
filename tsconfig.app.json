@@ -8,6 +8,7 @@
     "types": ["vite/client"],
     "baseUrl": "src",
     "paths": {
+      "@/*": ["*"],
       "@app/*": ["app/*"],
       "@modules/*": ["modules/*"],
       "@shared/*": ["shared/*"],

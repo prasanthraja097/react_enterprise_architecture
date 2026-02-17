@@ -33,9 +33,7 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
+/* Removed legacy `.card` utility after migrating to shadcn `Card` component */
 
 .read-the-docs {
   color: #888;

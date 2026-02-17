@@ -19,5 +19,37 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "JSXOpeningElement[name.name='button']",
+          message: "Use the shared Button component (import from '@shared/components/ui') instead of raw <button>.",
+        },
+        {
+          selector: "JSXOpeningElement[name.name='input']",
+          message: "Use the shared Input component (import from '@shared/components/ui') instead of raw <input>.",
+        },
+        {
+          selector: "JSXOpeningElement[name.name='textarea']",
+          message: "Use the shared Textarea component (import from '@shared/components/ui') instead of raw <textarea>.",
+        },
+        {
+          selector: "JSXOpeningElement[name.name='select']",
+          message: "Use the shared Select component (import from '@shared/components/ui') instead of raw <select>.",
+        },
+        {
+          selector: "JSXOpeningElement[name.name='label']",
+          message: "Use the shared Label component (import from '@shared/components/ui') instead of raw <label>.",
+        },
+      ],
+    },
+  },
+  // allow raw elements inside the UI implementation folder
+  {
+    files: ['src/shared/components/ui/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-syntax': 'off',
+    },
   },
 ])

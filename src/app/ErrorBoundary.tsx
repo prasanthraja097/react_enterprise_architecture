@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from '@shared/components/ui'
 
 type State = { hasError: boolean }
 
@@ -22,7 +23,9 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, 
         <div style={{ padding: 24 }}>
           <h2>Something went wrong</h2>
           <p>Our team has been notified. Try refreshing the page.</p>
-          <button onClick={() => window.location.reload()}>Reload</button>
+          <Button variant="outline" onClick={() => window.location.reload()}>
+            Reload
+          </Button>
         </div>
       )
     }
