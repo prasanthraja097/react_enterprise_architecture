@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
     <div className="min-h-[60vh] flex items-center justify-center">
       <div className="w-full max-w-md bg-slate-900/60 border border-slate-700 rounded-lg p-8">
         <h2 className="text-2xl font-semibold mb-6">Sign in</h2>
-        <LoginForm onSubmit={onSubmit} loading={mutation.isLoading} />
+        <LoginForm onSubmit={onSubmit} loading={mutation.isPending} />
         {mutation.isError && <div className="text-sm text-red-400 mt-3">Authentication failed</div>}
       </div>
     </div>
